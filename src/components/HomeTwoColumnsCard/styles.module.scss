@@ -1,0 +1,84 @@
+/* stylelint-disable selector-class-pattern */
+@import '/src/assets/theme/color.scss';
+@import '/src/assets/theme/constants.scss';
+
+.homeTwoColsCard {
+  width: 100%;
+  overflow-x: hidden;
+
+  .cardItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    max-width: $content-width-large-desktop;
+    margin: auto;
+
+    .cardInfoRight {
+      max-width: 480px;
+    }
+
+    .cardInfoLeft {
+      max-width: 480px;
+    }
+
+    .cardTitle {
+      font-weight: 700;
+      font-size: 40px;
+      line-height: 48px;
+      margin-bottom: 40px;
+    }
+
+    .cardContent{
+      font-size: 18px;
+      line-height: 26px;
+      color: $secondary-text;
+    }
+
+    .btn {
+      display: inherit;
+      margin: auto;
+      width: 162px;
+      height: 48px;
+      color: $white-text;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 28px;
+      background: $brand;
+      border-radius: 6px;
+      margin-top: 60px;
+
+      &:hover {
+        background: linear-gradient(0deg, $hover, $hover), $brand;
+      }
+    }
+  }
+
+  @media screen and (max-width: $divide-991) {
+    .cardItem {
+      flex-direction: column;
+      .btnWrap {
+        text-align: center;
+      }
+      .cardTitle {
+        font-size: 30px;
+        line-height: 40px;
+        margin-bottom: 24px;
+        text-align: center;
+      }
+      .cardContent{
+        font-size: 16px !important;
+        line-height: 24px;
+      }
+      .btn {
+        font-size: 16px;
+        line-height: 24px;
+        margin-top: 40px;
+      }
+    }
+
+    .cardItemLeft {
+      flex-direction: column-reverse;
+    }
+  }
+}
