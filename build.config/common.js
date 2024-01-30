@@ -13,19 +13,11 @@ module.exports = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'portkey-cms-mainnet.s3.ap-northeast-1.amazonaws.com',
+        hostname: 'symbolmarket-cms-dev.s3.ap-northeast-1.amazonaws.com/',
       },
       {
         protocol: 'https',
-        hostname: 'portkey-cms-testnet.s3.ap-northeast-1.amazonaws.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'portkey-cms-dev.s3.ap-northeast-1.amazonaws.com',
-      },
-      {
-        protocol: 'http',
-        hostname: '192.168.11.224',
+        hostname: 'symbolmarket-cms-mainnet.s3.ap-northeast-1.amazonaws.com/',
       },
     ],
   },
