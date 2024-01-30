@@ -152,6 +152,7 @@ const formatModule = (moduleItem: any): Module | undefined => {
           text: moduleItem.title,
         },
         image: moduleItem.image,
+        backgroundImage: moduleItem.backgroundImage,
         type: moduleItem.type,
         buttonList: formatButtonList(moduleItem.buttonList),
         descriptionList: formatDescriptionList(moduleItem.descriptionList),

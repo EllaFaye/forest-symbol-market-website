@@ -69,6 +69,3 @@ export const downloadData: DownloadGroupData = {
     iconHeight: 32,
   },
 };
-
-// [test] 'https://portkeydocs.readthedocs.io/en/pre-release/'
-export const DEVELOPERS_URL = 'https://portkeydocs.readthedocs.io/en/latest/index.html#';

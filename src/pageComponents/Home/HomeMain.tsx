@@ -40,7 +40,7 @@ export default function HomeMain({ headerData, footerData, pageData }: IHomePage
       <div className="empty-container" style={{ height: 80 }}></div>
 
       {Array.isArray(pageData?.moduleList) &&
-        pageData.moduleList.map((module, index) => {
+        pageData?.moduleList?.map((module, index) => {
           if (module.key === ModuleType.BrandModule) {
             return (
               <BrandModule key={pageData.key + '_' + index + '_' + module.key} type={uaType} moduleData={module} />

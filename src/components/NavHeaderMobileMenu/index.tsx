@@ -8,7 +8,7 @@ import { ROUTER } from '@/constants/enum';
 import { useCallback, useRef, useState } from 'react';
 import MenuArrowSVG from '@/components/SVGComponents/MenuArrowSVG';
 import { Popup } from 'antd-mobile';
-import { Header, TopMenu } from '@/types/global/header';
+import { Header } from '@/types/global/header';
 
 enum HiddenSecondType {
   ALL_HIDDEN = 'none',
@@ -119,7 +119,10 @@ export default function NavHeaderMobileMenu({ isOpen = false, data, callback }: 
         })}
 
         {data.actionButton?.text && (
-          <Button type="text" className={styles.downloadBtn} onClick={() => openWithBlank(data.actionButton?.linkUrl || '')}>
+          <Button
+            type="text"
+            className={styles.downloadBtn}
+            onClick={() => openWithBlank(data.actionButton?.linkUrl || '')}>
             {data?.actionButton.text}
           </Button>
         )}

@@ -10,6 +10,7 @@ export interface IBrandModule {
     text: string;
   };
   image: ImageWrapper;
+  backgroundImage?: ImageWrapper;
   type: BrandModuleType; // default value is "WhiteColor"
   descriptionList: Array<DescriptionComponent>;
   buttonList: Array<ButtonComponent>;

@@ -1,7 +1,6 @@
 import { Button } from 'antd';
 import clsx from 'clsx';
 import CommonImage from '@/components/CommonImage';
-import { ContentsData } from '@/constants/homeData';
 import RowDescription from '@/components/RowDescription';
 import { CSSProperties } from 'react';
 import styles from './styles.module.scss';

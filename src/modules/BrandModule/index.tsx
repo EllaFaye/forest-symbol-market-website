@@ -6,7 +6,6 @@ import styles from './styles.module.scss';
 import DownloadButtonGroup from '@/components/DownloadButtonGroup';
 import { ButtonKey } from '@/types/components/button';
 import { BrandModuleType, IBrandModule } from '@/types/modules/brandModule';
-import { Button } from 'antd';
 import { s3Url } from '@/constants/network';
 import { openWithBlank } from '@/utils/router';
 import CommonButton from '@/components/CommonButton';
@@ -26,6 +25,9 @@ export default function BrandModule({ type, moduleData }: BrandModuleProps) {
       ])}
       style={{
         backgroundColor: moduleData.commonStyles?.defaultBackgroundColor,
+        backgroundImage: `url(${
+          moduleData?.backgroundImage?.filename_disk ? s3Url + moduleData?.backgroundImage?.filename_disk : ''
+        })`,
         paddingTop: moduleData.commonStyles?.paddingVertical + 'px' || 'auto',
         paddingBottom: moduleData.commonStyles?.paddingVertical + 'px' || 'auto',
       }}>
