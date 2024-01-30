@@ -20,6 +20,20 @@ export const BackEndNetWorkMap: Record<string, WebsiteNetworkConfig> = {
       s3Url: 'https://portkey-cms-mainnet.s3.ap-northeast-1.amazonaws.com/',
     },
   },
+  TSM: {
+    dev: {
+      name: 'tsm dev',
+      networkType: 'TESTNET',
+      cmsUrl: 'http://192.168.66.62:3104',
+      s3Url: '',
+    },
+    mainnet: {
+      name: 'tsm Mainnet',
+      networkType: 'MAIN',
+      cmsUrl: '',
+      s3Url: '',
+    },
+  },
   // Add More ...
 };
 
