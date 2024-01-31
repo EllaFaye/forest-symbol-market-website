@@ -1,6 +1,6 @@
 module.exports = [
-  // {
-  //   source: '/api/:path*',
-  //   destination: 'http://192.168.67.187:8068/api/:path*',
-  // },
+  {
+    source: '/cms/:path*',
+    destination: 'https://testhome.symbolmarket.io/cms/:path*',
+  },
 ];
