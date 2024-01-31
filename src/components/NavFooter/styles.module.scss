@@ -41,6 +41,7 @@
           line-height: 20px;
           color: $primary-text;
           margin-bottom: 8px;
+          background-color: var(--normal);
           cursor: pointer;
           &:hover {
             color: $brand;
