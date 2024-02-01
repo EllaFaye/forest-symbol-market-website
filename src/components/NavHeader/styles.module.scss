@@ -70,10 +70,10 @@
 
   .firstMenuWithChild {
     cursor: pointer;
-
+    
     svg {
       margin-left: 12px;
-      @include rotate(180deg, 0.2s);
+      @include rotate(0, 0.2s);
     }
   }
   .firstMenuWithChildAndBlueStyle {
@@ -96,17 +96,27 @@
 
   .rotateSvg {
     svg {
-      @include rotate(0deg, 0.2s);
+      @include rotate(180deg, 0.2s);
     }
   }
 }
 
 .secondMenus {
-  :global{
+  :global {
     .ant-popover-inner-content {
       background-color: var(--normalBg) !important;
+      border-radius: 6px;
+      border: 1px solid var(--border) !important;
+      overflow: hidden;
+    }
+    .ant-popover-arrow-content {
+      box-sizing: content-box;
+      border: 2px solid var(--border) !important;
     }
     .ant-popover-arrow-content::before {
+      background-color: var(--normalBg) !important;
+    }
+    .ant-popover-inner {
       background-color: var(--normalBg) !important;
     }
   }

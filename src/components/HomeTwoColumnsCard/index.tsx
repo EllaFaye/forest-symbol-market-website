@@ -2,7 +2,7 @@ import { Button } from 'antd';
 import clsx from 'clsx';
 import CommonImage from '@/components/CommonImage';
 import RowDescription from '@/components/RowDescription';
-import { CSSProperties } from 'react';
+import { CSSProperties, useMemo } from 'react';
 import styles from './styles.module.scss';
 import { motion, Variants } from 'framer-motion';
 import { INITIAL, WHILE_IN_VIEW, VIEWPORT, variantLeftToRight, variantRightToLeft } from '@/constants/motion';
@@ -42,6 +42,10 @@ export default function HomeTwoColumnsCard(props: HomeTwoColumnsCardProps) {
     buttonClick,
   } = props;
 
+  const multiLayer = useMemo(() => {
+    return contents.filter((item) => item.children?.length).length > 0;
+  }, [contents]);
+
   const contentUI = (className: string, variant: (amount: number) => Variants) => {
     return (
       <div className={className}>
@@ -53,6 +57,7 @@ export default function HomeTwoColumnsCard(props: HomeTwoColumnsCardProps) {
             return (
               <motion.div key={'HomeTwoColumnsDesc' + idx} variants={variant((idx + 1) * 0.1)}>
                 <RowDescription
+                  multiLayer={multiLayer}
                   subContentList={item.children || []}
                   className={styles.cardContent}
                   iconSrc={item?.icon?.filename_disk ? s3Url + item?.icon?.filename_disk : ''}

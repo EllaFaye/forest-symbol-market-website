@@ -12,6 +12,7 @@ export interface RowDescriptionProps {
   contentSize?: number;
   className?: string;
   subContentList?: Array<DescriptionComponent>;
+  multiLayer?: boolean;
 }
 
 export default function RowDescription(props: RowDescriptionProps) {
@@ -24,12 +25,13 @@ export default function RowDescription(props: RowDescriptionProps) {
     contentSize,
     className,
     subContentList,
+    multiLayer = false,
   } = props;
 
   return (
     <div
       className={clsx([styles.rowDescription, className])}
-      style={subContentList?.length ? { marginBottom: '40px' } : { marginBottom: '16px' }}>
+      style={multiLayer ? { marginBottom: '40px' } : { marginBottom: '16px' }}>
       {iconSrc && (
         <CommonImage
           src={iconSrc}
@@ -42,7 +44,9 @@ export default function RowDescription(props: RowDescriptionProps) {
       {subContentList && subContentList.length ? (
         <SecondaryList content={content} subContentList={subContentList} />
       ) : (
-        <div style={{ fontSize: contentSize }}>{content}</div>
+        <div className={multiLayer ? styles.title : ''} style={{ fontSize: contentSize }}>
+          {content}
+        </div>
       )}
     </div>
   );
