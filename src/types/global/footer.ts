@@ -6,6 +6,8 @@ export type Footer = {
   key: GlobalModuleType.Footer;
   logo: {
     defaultUrl: string;
+    width?: string | number;
+    height?: string | number;
   };
   menuList: Array<TopMenu>;
   socialMediaList: SocialMedia[];

@@ -72,6 +72,8 @@ export const getHeader = async (): Promise<Header> => {
       type: data.type,
       logo: {
         defaultUrl: data.defaultLogo?.filename_disk ? s3Url + data.defaultLogo?.filename_disk : '',
+        width: data.defaultLogo.width,
+        height: data.defaultLogo.height,
       },
       menuList,
       actionButton: {
@@ -105,6 +107,8 @@ export const getFooter = async (): Promise<Footer> => {
       },
       logo: {
         defaultUrl: data.defaultLogo?.filename_disk ? s3Url + data.defaultLogo?.filename_disk : '',
+        width: data.defaultLogo.width,
+        height: data.defaultLogo.height,
       },
       menuList,
       socialMediaList,

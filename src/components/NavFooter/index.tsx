@@ -42,9 +42,15 @@ export default function NavFooter({ className, style, footerMediaClassName, data
         <div className={styles.footerNav}>
           <CommonImage
             src={data.logo.defaultUrl}
-            style={{ width: 142, height: 32, cursor: 'pointer', minWidth: 142, marginRight: 120, marginBottom: 40 }}
-            width={142}
-            height={32}
+            style={{
+              width: (Number(data.logo.width) / Number(data.logo.height)) * 32,
+              height: 32,
+              cursor: 'pointer',
+              minWidth: 142,
+              marginRight: 120,
+              marginBottom: 40,
+            }}
+            fill
             alt="websiteLogo"
             className={styles.logo}
             onClick={() => jumpOrScrollToTop(ROUTER.DEFAULT)}

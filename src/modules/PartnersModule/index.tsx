@@ -26,7 +26,10 @@ export default function PartnersModule({ module }: IPartnersModuleProps) {
               <div
                 key={index}
                 className={styles.partnerItem}
-                style={{ backgroundColor: commonStyles.defaultCardBackgroundColor }}>
+                style={{ backgroundColor: commonStyles.defaultCardBackgroundColor }}
+                onClick={() => {
+                  item.url && window.open(item.url);
+                }}>
                 <CommonImage
                   width={200}
                   height={50}

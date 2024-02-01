@@ -5,6 +5,8 @@ export type Header = {
   type: HeaderType; // default value is "default"
   logo: {
     defaultUrl: string;
+    width?: string | number;
+    height?: string | number;
   };
   menuList: Array<TopMenu>;
   actionButton: {

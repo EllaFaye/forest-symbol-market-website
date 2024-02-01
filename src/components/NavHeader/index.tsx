@@ -71,9 +71,8 @@ export default function NavHeader({ className, style, path = ROUTER.DEFAULT, dat
       <div className={clsx(['page-container', styles.navHeader])}>
         <CommonImage
           src={data.logo?.defaultUrl}
-          style={{ width: 142, height: 32, cursor: 'pointer' }} // TODO
-          width={142}
-          height={32}
+          style={{ width: (Number(data.logo.width) / Number(data.logo.height)) * 32, height: 32, cursor: 'pointer' }} // TODO
+          fill
           alt="websiteLogo"
           onClick={() => jumpOrScrollToTop(ROUTER.DEFAULT)}
           priority

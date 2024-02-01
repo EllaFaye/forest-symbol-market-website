@@ -62,9 +62,8 @@ export default function NavHeaderMobileMenu({ isOpen = false, data, callback }: 
       <div className={clsx(['flex-row-between', styles.logoRow])}>
         <CommonImage
           src={data.logo.defaultUrl}
-          style={{ width: 142, height: 32, cursor: 'pointer' }}
-          width={142}
-          height={32}
+          style={{ width: (Number(data.logo.width) / Number(data.logo.height)) * 32, height: 32, cursor: 'pointer' }}
+          fill
           alt="websiteLogo"
           priority
           onClick={() => jumpOrScrollToTop(ROUTER.DEFAULT, onClose)}

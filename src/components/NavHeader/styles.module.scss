@@ -45,7 +45,7 @@
 
 .actionButton {
   width: 120px;
-  height: 36px;
+  height: 48px;
   background: $brand;
   border-radius: 6px;
   color: $white-text;
@@ -102,6 +102,14 @@
 }
 
 .secondMenus {
+  :global{
+    .ant-popover-inner-content {
+      background-color: var(--normalBg) !important;
+    }
+    .ant-popover-arrow-content::before {
+      background-color: var(--normalBg) !important;
+    }
+  }
   .secondMenuList {
     width: 100%;
     .secondMenuItem {
