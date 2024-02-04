@@ -9,6 +9,7 @@ import { useCallback, useRef, useState } from 'react';
 import MenuArrowSVG from '@/components/SVGComponents/MenuArrowSVG';
 import { Popup } from 'antd-mobile';
 import { Header } from '@/types/global/header';
+import { s3Url } from '@/constants/network';
 
 enum HiddenSecondType {
   ALL_HIDDEN = 'none',
@@ -61,7 +62,7 @@ export default function NavHeaderMobileMenu({ isOpen = false, data, callback }: 
       stopPropagation={['click']}>
       <div className={clsx(['flex-row-between', styles.logoRow])}>
         <CommonImage
-          src={data.logo.defaultUrl}
+          src={data.logo?.filename_disk ? s3Url + data.logo.filename_disk : ''}
           style={{ width: (Number(data.logo.width) / Number(data.logo.height)) * 32, height: 32, cursor: 'pointer' }}
           fill
           alt="websiteLogo"
@@ -121,7 +122,7 @@ export default function NavHeaderMobileMenu({ isOpen = false, data, callback }: 
           <Button
             type="text"
             className={styles.downloadBtn}
-            onClick={() => openWithBlank(data.actionButton?.linkUrl || '')}>
+            onClick={() => openWithBlank(data.actionButton?.link.url || '')}>
             {data?.actionButton.text}
           </Button>
         )}

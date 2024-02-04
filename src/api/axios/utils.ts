@@ -1,4 +1,3 @@
-// TODO: Bind Sentry or firebase Logs
 import { AxiosInstance } from 'axios';
 
 export function interceptorsBind(axios: AxiosInstance) {

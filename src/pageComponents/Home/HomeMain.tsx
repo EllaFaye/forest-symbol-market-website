@@ -12,6 +12,9 @@ import { useCallback } from 'react';
 import { useEffectOnce } from 'react-use';
 import CardListModule from '@/modules/CardListModule';
 import PartnersModule from '@/modules/PartnersModule';
+import FeatureCardModule from '@/modules/FeatureCardModule';
+import InfiniteScrollCarouselModule from '@/modules/InfiniteScrollCarouselModule';
+import { ButtonBelowTextModule } from '@/modules/ButtonBelowText';
 
 export default function HomeMain({ headerData, footerData, pageData }: IHomePageProps) {
   const uaType = useUserAgent(); // TODO 'use client' or ''use server';
@@ -54,6 +57,15 @@ export default function HomeMain({ headerData, footerData, pageData }: IHomePage
           }
           if (module.key === ModuleType.PartnersModule) {
             return <PartnersModule key={pageData.key + '_' + index + '_' + module.key} module={module} />;
+          }
+          if (module.key === ModuleType.FeatureCardModule) {
+            return <FeatureCardModule key={pageData.key + '_' + index + '_' + module.key} module={module} />;
+          }
+          if (module.key === ModuleType.InfiniteScrollCarouselModule) {
+            return <InfiniteScrollCarouselModule key={pageData.key + '_' + index + '_' + module.key} module={module} />;
+          }
+          if (module.key === ModuleType.ButtonBelowTextModule) {
+            return <ButtonBelowTextModule key={pageData.key + '_' + index + '_' + module.key} module={module} />;
           }
           return <></>;
         })}

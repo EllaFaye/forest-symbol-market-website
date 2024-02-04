@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import styles from './style.module.scss';
 import CommonImage from '@/components/CommonImage';
 import { s3Url } from '@/constants/network';
+import useGetVertical from '@/hooks/useGetVertical';
 
 interface IPartnersModuleProps {
   module: IPartnersModule;
@@ -10,13 +11,15 @@ interface IPartnersModuleProps {
 
 export default function PartnersModule({ module }: IPartnersModuleProps) {
   const { title, list, commonStyles } = module;
+  const { paddingVertical } = commonStyles;
+  const { getVertical } = useGetVertical();
   return (
     <section
       className={clsx(['section-container', styles.partnersModuleWrap])}
       style={{
         backgroundColor: module.commonStyles?.defaultBackgroundColor,
-        paddingTop: module.commonStyles?.paddingVertical + 'px' || 'auto',
-        paddingBottom: module.commonStyles?.paddingVertical + 'px' || 'auto',
+        paddingTop: paddingVertical ? getVertical(paddingVertical) + 'px' : 'auto',
+        paddingBottom: paddingVertical ? getVertical(paddingVertical) + 'px' : 'auto',
       }}>
       <section className={styles.content}>
         <h1 className={styles.sectionTitle}>{title?.text}</h1>

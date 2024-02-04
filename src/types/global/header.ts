@@ -1,18 +1,13 @@
+import { CommonButtonComponent } from '../components/button';
+import { ImageWrapper } from '../components/image';
 import { GlobalModuleType } from './index';
 
 export type Header = {
   key: GlobalModuleType.Header;
   type: HeaderType; // default value is "default"
-  logo: {
-    defaultUrl: string;
-    width?: string | number;
-    height?: string | number;
-  };
+  logo: ImageWrapper;
   menuList: Array<TopMenu>;
-  actionButton: {
-    text?: string;
-    linkUrl?: string;
-  };
+  actionButton?: CommonButtonComponent;
   commonStyles?: HeaderCommonStyles;
 };
 

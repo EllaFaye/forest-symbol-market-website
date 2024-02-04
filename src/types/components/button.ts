@@ -11,6 +11,7 @@ export type CommonButtonComponent = ButtonBase & {
   link: ButtonLink;
   text?: string;
   commonStyles: {
+    width?: string;
     // The color takes effect when the type is "Default"
     default: {
       backgroundColor?: string;

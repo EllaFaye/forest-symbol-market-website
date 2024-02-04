@@ -1,4 +1,3 @@
-import { Button } from 'antd';
 import clsx from 'clsx';
 import CommonImage from '@/components/CommonImage';
 import RowDescription from '@/components/RowDescription';
@@ -9,6 +8,9 @@ import { INITIAL, WHILE_IN_VIEW, VIEWPORT, variantLeftToRight, variantRightToLef
 import { GraphicTextModuleType } from '@/types/modules/graphicTextModule';
 import { DescriptionComponent } from '@/types/components/description';
 import { s3Url } from '@/constants/network';
+import CommonButton from '../CommonButton';
+import { openWithBlank } from '@/utils/router';
+import { CommonButtonComponent } from '@/types/components/button';
 
 interface ContentData extends DescriptionComponent {
   textColor?: string;
@@ -25,8 +27,7 @@ interface HomeTwoColumnsCardProps {
   imgSrc: string; // image url
   title?: string;
   contents: Array<ContentData>;
-  buttonText?: string;
-  buttonClick?: () => void;
+  buttonList?: Array<CommonButtonComponent>;
 }
 
 export default function HomeTwoColumnsCard(props: HomeTwoColumnsCardProps) {
@@ -38,8 +39,7 @@ export default function HomeTwoColumnsCard(props: HomeTwoColumnsCardProps) {
     imgPosition = GraphicTextModuleType.LeftPicture_RightText,
     title,
     contents,
-    buttonText = '',
-    buttonClick,
+    buttonList,
   } = props;
 
   const multiLayer = useMemo(() => {
@@ -63,22 +63,33 @@ export default function HomeTwoColumnsCard(props: HomeTwoColumnsCardProps) {
                   iconSrc={item?.icon?.filename_disk ? s3Url + item?.icon?.filename_disk : ''}
                   iconWidth={item?.iconWidth}
                   iconHeight={item?.iconHeight}
-                  content={item.text}
+                  content={item.text || ''}
                   gap={item?.iconMarginRight}
                 />
               </motion.div>
             );
           })}
 
-          {buttonText && (
-            <div className={styles.btnWrap}>
-              <motion.span variants={variant(contents.length * 0.5)}>
-                <Button type="text" onClick={buttonClick} className={styles.btn}>
-                  {buttonText}
-                </Button>
-              </motion.span>
-            </div>
-          )}
+          <section className={styles.btnListWrap}>
+            {buttonList?.length &&
+              buttonList.map((button, index) => {
+                return (
+                  <div className={styles.btnWrap} key={index}>
+                    <motion.span variants={variant(contents.length * 0.5)}>
+                      <CommonButton
+                        className={styles.btn}
+                        text={button.text || ''}
+                        fontColor={button.commonStyles.default?.fontColor}
+                        backgroundColor={button.commonStyles.default?.backgroundColor}
+                        borderColor={button.commonStyles.default?.borderColor}
+                        width={button.commonStyles.width ? button.commonStyles.width + 'px' : 'auto'}
+                        onClick={() => openWithBlank(button.link?.url, button.link?.target)}
+                      />
+                    </motion.span>
+                  </div>
+                );
+              })}
+          </section>
         </motion.div>
       </div>
     );

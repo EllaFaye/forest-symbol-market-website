@@ -9,6 +9,7 @@ import { BrandModuleType, IBrandModule } from '@/types/modules/brandModule';
 import { s3Url } from '@/constants/network';
 import { openWithBlank } from '@/utils/router';
 import CommonButton from '@/components/CommonButton';
+import useGetVertical from '@/hooks/useGetVertical';
 
 export interface BrandModuleProps {
   type: DEVICE_TYPE;
@@ -16,6 +17,8 @@ export interface BrandModuleProps {
 }
 
 export default function BrandModule({ type, moduleData }: BrandModuleProps) {
+  const { getVertical } = useGetVertical();
+  const { paddingVertical } = moduleData.commonStyles;
   return (
     <section
       className={clsx([
@@ -28,8 +31,8 @@ export default function BrandModule({ type, moduleData }: BrandModuleProps) {
         backgroundImage: `url(${
           moduleData?.backgroundImage?.filename_disk ? s3Url + moduleData?.backgroundImage?.filename_disk : ''
         })`,
-        paddingTop: moduleData.commonStyles?.paddingVertical + 'px' || 'auto',
-        paddingBottom: moduleData.commonStyles?.paddingVertical + 'px' || 'auto',
+        paddingTop: paddingVertical ? getVertical(paddingVertical) + 'px' : 'auto',
+        paddingBottom: paddingVertical ? getVertical(paddingVertical) + 'px' : 'auto',
       }}>
       <section className={clsx([styles.brandModuleContainer, styles.brandModule])}>
         <section className={styles.brandModuleLeft}>
@@ -48,7 +51,7 @@ export default function BrandModule({ type, moduleData }: BrandModuleProps) {
                     className={styles.desc}
                     iconSrc={item.icon?.filename_disk ? s3Url + item.icon?.filename_disk : ''}
                     gap={10}
-                    content={item.text}
+                    content={item.text || ''}
                   />
                 );
               })}

@@ -4,8 +4,6 @@
 
 .graphicTextModule {
   background-color: $page-bg;
-  padding-top: 120px;
-  padding-bottom: 120px;
 
   .sectionTitle {
     word-wrap: break-word;
@@ -13,7 +11,8 @@
     font-size: 40px;
     line-height: 48px;
     text-align: center;
-    max-width: 852px;
+    max-width: $content-width-large-desktop;
+    margin: auto;
   }
   .graphicTextModuleItem {
     margin-bottom: 120px;
@@ -31,9 +30,6 @@
   }
 
   @media screen and (max-width: $divide-991) {
-    padding-top: 60px;
-    padding-bottom: 60px;
-
     .sectionTitle {
       font-size: 30px;
       line-height: 40px;

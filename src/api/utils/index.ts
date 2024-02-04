@@ -1,7 +1,7 @@
 import { get } from '@/api/axios';
 import { API } from '@/api/constants';
 import { s3Url } from '@/constants/network';
-import { ButtonComponent, ButtonKey } from '@/types/components/button';
+import { ButtonComponent, ButtonKey, CommonButtonComponent } from '@/types/components/button';
 import { DescriptionComponent } from '@/types/components/description';
 import { GlobalModuleType } from '@/types/global';
 import { GlobalConfig } from '@/types/global';
@@ -11,6 +11,9 @@ import { Module, ModuleType } from '@/types/modules';
 import { handleErrorMessage } from '@/utils';
 import { IAPIDescriptionItem } from './types';
 import { DappPage } from '@/types/pages';
+import { IPartnerItem } from '@/types/modules/partnersModule';
+import { IFeatureCardItem } from '@/types/modules/featureCardModule';
+import { IInfiniteScrollCarouselItem } from '@/types/modules/infiniteScrollCarouselModule';
 
 export const getGlobalConfig = async (): Promise<GlobalConfig> => {
   try {
@@ -65,21 +68,18 @@ export const getHeader = async (): Promise<Header> => {
     const menuList = (data.menuList || []).map((item: any) => ({
       ...item.topMenu_id,
       type: item.topMenu_id.type.value,
+      children: item.topMenu_id.children.map((child: any) => ({
+        ...child,
+        type: child.type.value,
+      })),
     }));
 
     return {
       key: GlobalModuleType.Header,
       type: data.type,
-      logo: {
-        defaultUrl: data.defaultLogo?.filename_disk ? s3Url + data.defaultLogo?.filename_disk : '',
-        width: data.defaultLogo.width,
-        height: data.defaultLogo.height,
-      },
+      logo: data.defaultLogo,
       menuList,
-      actionButton: {
-        text: data.actionButtonText || undefined,
-        linkUrl: data.actionButtonLinkUrl || undefined,
-      },
+      actionButton: data.actionButton ? formatCommonButton(data.actionButton) : undefined,
       commonStyles: {
         defaultBackgroundColor: data.defaultBackgroundColor || undefined,
       },
@@ -105,11 +105,8 @@ export const getFooter = async (): Promise<Footer> => {
       powerName: {
         text: data.powerNameText,
       },
-      logo: {
-        defaultUrl: data.defaultLogo?.filename_disk ? s3Url + data.defaultLogo?.filename_disk : '',
-        width: data.defaultLogo.width,
-        height: data.defaultLogo.height,
-      },
+      logo: data.defaultLogo,
+      description: data.description || undefined,
       menuList,
       socialMediaList,
       commonStyles: {
@@ -177,6 +174,7 @@ const formatModule = (moduleItem: any): Module | undefined => {
           text: moduleItem.subTitle,
         },
         descriptionList: formatDescriptionList(moduleItem.descriptionList),
+        buttonList: formatButtonList(moduleItem.buttonList) as CommonButtonComponent[],
         type: moduleItem.type,
         commonStyles: {
           paddingVertical: moduleItem.paddingVertical || undefined,
@@ -215,6 +213,56 @@ const formatModule = (moduleItem: any): Module | undefined => {
           defaultCardBackgroundColor: moduleItem.defaultCardBackgroundColor || undefined,
         },
       };
+    case ModuleType.ButtonBelowTextModule:
+      return {
+        key: ModuleType.ButtonBelowTextModule,
+        index: moduleItem.index,
+        title: {
+          text: moduleItem.title,
+        },
+        descriptionList: formatDescriptionList(moduleItem.descriptionList),
+        buttonList: formatButtonList(moduleItem.buttonList),
+        commonStyles: {
+          paddingVertical: moduleItem.paddingVertical || undefined,
+          defaultBackgroundColor: moduleItem.defaultBackgroundColor || undefined,
+        },
+      };
+    case ModuleType.FeatureCardModule:
+      return {
+        key: ModuleType.FeatureCardModule,
+        index: moduleItem.index,
+        title: moduleItem.title
+          ? {
+              text: moduleItem.title,
+            }
+          : undefined,
+        subTitle: moduleItem.subTitle
+          ? {
+              text: moduleItem.subTitle,
+            }
+          : undefined,
+        featureList: formatFeatureList(moduleItem.featureList),
+        commonStyles: {
+          paddingVertical: moduleItem.paddingVertical || undefined,
+          defaultBackgroundColor: moduleItem.defaultBackgroundColor || undefined,
+          defaultCardBackgroundColor: moduleItem.defaultCardBackgroundColor || undefined,
+        },
+      };
+    case ModuleType.InfiniteScrollCarouselModule:
+      return {
+        key: ModuleType.InfiniteScrollCarouselModule,
+        index: moduleItem.index,
+        title: moduleItem.title
+          ? {
+              text: moduleItem.title,
+            }
+          : undefined,
+        carouselList: formatCarouselList(moduleItem.carouselList),
+        commonStyles: {
+          paddingVertical: moduleItem.paddingVertical || undefined,
+          defaultBackgroundColor: moduleItem.defaultBackgroundColor || undefined,
+        },
+      };
     default:
       return undefined;
   }
@@ -242,33 +290,38 @@ const formatButtonList = (buttonList = []) => {
     buttonList
       .map((buttonItem: any) =>
         formatButton({
-          ...buttonItem.item,
+          ...(buttonItem.item || buttonItem.button_id),
         }),
       )
       .filter((item) => !!item) as ButtonComponent[]
   ).sort((a, b) => a.index - b.index);
 };
 
+const formatCommonButton = (data: any): CommonButtonComponent | undefined => {
+  return {
+    key: ButtonKey.Common,
+    index: data.index,
+    type: data.type,
+    link: {
+      url: data.linkUrl,
+      target: data.linkTarget,
+    },
+    text: data.text || undefined,
+    commonStyles: {
+      width: data.width || undefined,
+      default: {
+        backgroundColor: data.defaultBackgroundColor || undefined,
+        fontColor: data.defaultFontColor || undefined,
+        borderColor: data.defaultBorderColor || undefined,
+      },
+    },
+  };
+};
+
 const formatButton = (data: any): ButtonComponent | undefined => {
   switch (data.key) {
     case ButtonKey.Common:
-      return {
-        key: ButtonKey.Common,
-        index: data.index,
-        type: data.type,
-        link: {
-          url: data.linkUrl,
-          target: data.linkTarget,
-        },
-        text: data.text || undefined,
-        commonStyles: {
-          default: {
-            backgroundColor: data.defaultBackgroundColor || undefined,
-            fontColor: data.defaultFontColor || undefined,
-            borderColor: data.defaultBorderColor || undefined,
-          },
-        },
-      };
+      return formatCommonButton(data);
     case ButtonKey.DownloadApp:
       return {
         key: ButtonKey.DownloadApp,
@@ -284,12 +337,34 @@ const formatButton = (data: any): ButtonComponent | undefined => {
   }
 };
 
-const formatPartnerList = (partnerList: any[] = []) => {
+const formatPartnerList = (partnerList: any[] = []): IPartnerItem[] => {
   return partnerList
-    .map(({ partner_id: item }) => ({
+    .map<IPartnerItem>(({ partner_id: item }) => ({
       index: item.index,
       logoImage: item.logoImage,
       url: item.url || undefined,
     }))
-    .sort((a: any, b: any) => a.index - b.index);
+    .sort((a, b) => a.index - b.index);
+};
+
+const formatFeatureList = (featureList: any[] = []): IFeatureCardItem[] => {
+  return featureList
+    .map<IFeatureCardItem>((item: any) => ({
+      index: item.index,
+      iconNormal: item.iconNormal,
+      iconHover: item.iconHover,
+      title: item.title,
+      content: item.content,
+    }))
+    .sort((a, b) => a.index - b.index);
+};
+
+const formatCarouselList = (featureList: any[] = []): IInfiniteScrollCarouselItem[] => {
+  return featureList
+    .map<IInfiniteScrollCarouselItem>((item: any) => ({
+      index: item.index,
+      name: item.name,
+      logo: item.logo,
+    }))
+    .sort((a, b) => a.index - b.index);
 };

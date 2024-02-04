@@ -1,27 +1,44 @@
-import { IButtonBelowTextModule } from '@/types/modules/buttonBelowText';
+import { IButtonBelowTextModule } from '@/types/modules/buttonBelowTextModule';
 import styles from './styles.module.scss';
 import clsx from 'clsx';
 import CommonButton from '@/components/CommonButton';
 import { openWithBlank } from '@/utils/router';
 import { ButtonKey } from '@/types/components/button';
+import RowDescription from '@/components/RowDescription';
+import { s3Url } from '@/constants/network';
+import useGetVertical from '@/hooks/useGetVertical';
 
 export interface IButtonBelowTextProps {
   module: IButtonBelowTextModule;
 }
 
 export function ButtonBelowTextModule({ module }: IButtonBelowTextProps) {
-  const { title, subTitle, buttonList, commonStyles } = module;
+  const { title, descriptionList, buttonList, commonStyles } = module;
+  const { getVertical } = useGetVertical();
   return (
     <section
       className={clsx(['section-container', styles.sectionWrap])}
       style={{
         backgroundColor: commonStyles.defaultBackgroundColor,
-        paddingTop: commonStyles?.paddingVertical + 'px' || 'auto',
-        paddingBottom: commonStyles?.paddingVertical + 'px' || 'auto',
+        paddingTop: commonStyles.paddingVertical ? getVertical(commonStyles.paddingVertical) + 'px' : 'auto',
+        paddingBottom: commonStyles.paddingVertical ? getVertical(commonStyles.paddingVertical) + 'px' : 'auto',
       }}>
       <section className={styles.container}>
         <h1 className={styles.title}>{title.text}</h1>
-        <h3 className={styles.subTitle}>{subTitle?.text}</h3>
+        {descriptionList.length && (
+          <section className={styles.descriptionList}>
+            {descriptionList.map((item, index) => {
+              return (
+                <RowDescription
+                  key={'Description' + '_' + index}
+                  className={styles.descriptionItem}
+                  iconSrc={item.icon?.filename_disk ? s3Url + item.icon?.filename_disk : ''}
+                  content={item.text || ''}
+                />
+              );
+            })}
+          </section>
+        )}
         <section className={styles.buttonGroup}>
           {buttonList.map((btn, index) => {
             if (btn.key === ButtonKey.Common) {
@@ -32,6 +49,7 @@ export function ButtonBelowTextModule({ module }: IButtonBelowTextProps) {
                   fontColor={btn.commonStyles.default?.fontColor}
                   backgroundColor={btn.commonStyles.default?.backgroundColor}
                   borderColor={btn.commonStyles.default?.borderColor}
+                  width={btn.commonStyles.width ? btn.commonStyles.width + 'px' : 'auto'}
                   onClick={() => openWithBlank(btn.link?.url, btn.link?.target)}
                 />
               );

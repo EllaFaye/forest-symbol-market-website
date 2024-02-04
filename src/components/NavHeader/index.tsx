@@ -9,6 +9,7 @@ import NavHeaderMobileMenu from '@/components/NavHeaderMobileMenu';
 import { jumpOrScrollToTop, openWithBlank, switchPage } from '@/utils/router';
 import MenuArrowSVG from '@/components/SVGComponents/MenuArrowSVG';
 import { Header, SecondMenu, TopMenu } from '@/types/global/header';
+import { s3Url } from '@/constants/network';
 
 export interface INavHeaderProps {
   className?: string;
@@ -70,7 +71,7 @@ export default function NavHeader({ className, style, path = ROUTER.DEFAULT, dat
       style={{ backgroundColor: data.commonStyles?.defaultBackgroundColor, ...style }}>
       <div className={clsx(['page-container', styles.navHeader])}>
         <CommonImage
-          src={data.logo?.defaultUrl}
+          src={data.logo?.filename_disk ? s3Url + data.logo.filename_disk : ''}
           style={{ width: (Number(data.logo.width) / Number(data.logo.height)) * 32, height: 32, cursor: 'pointer' }} // TODO
           fill
           alt="websiteLogo"
@@ -136,8 +137,21 @@ export default function NavHeader({ className, style, path = ROUTER.DEFAULT, dat
                 );
               })}
             {data.actionButton?.text && (
-              <div className={styles.linkBtnWrap} onClick={() => openWithBlank(data.actionButton?.linkUrl || '')}>
-                <div className={clsx(['text-black-btn', styles.actionButton])}>{data.actionButton.text}</div>
+              <div
+                className={styles.linkBtnWrap}
+                onClick={() =>
+                  openWithBlank(data.actionButton?.link.url || '', data.actionButton?.link.target || '_blank')
+                }>
+                <div
+                  className={styles.actionButton}
+                  style={{
+                    backgroundColor: data.actionButton.commonStyles.default.backgroundColor,
+                    borderColor: data.actionButton.commonStyles.default.borderColor,
+                    color: data.actionButton.commonStyles.default.fontColor,
+                    width: data.actionButton.commonStyles.width ? data.actionButton.commonStyles.width + 'px' : 'auto',
+                  }}>
+                  {data.actionButton.text}
+                </div>
               </div>
             )}
           </div>

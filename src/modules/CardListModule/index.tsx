@@ -3,6 +3,7 @@ import styles from './style.module.scss';
 import CommonImage from '@/components/CommonImage';
 import { s3Url } from '@/constants/network';
 import clsx from 'clsx';
+import useGetVertical from '@/hooks/useGetVertical';
 
 export interface ICardListModuleProps {
   moduleData: ICardListModule;
@@ -10,6 +11,7 @@ export interface ICardListModuleProps {
 
 export default function CardListModule({ moduleData }: ICardListModuleProps) {
   const { title, subTitle, dataArray, commonStyles } = moduleData;
+  const { getVertical } = useGetVertical();
 
   const cardList = (
     <section className={styles.cardList}>
@@ -49,8 +51,8 @@ export default function CardListModule({ moduleData }: ICardListModuleProps) {
       className={clsx(['section-container', styles.cardListModuleWrap])}
       style={{
         backgroundColor: commonStyles.defaultBackgroundColor,
-        paddingTop: commonStyles?.paddingVertical + 'px' || 'auto',
-        paddingBottom: commonStyles?.paddingVertical + 'px' || 'auto',
+        paddingTop: commonStyles.paddingVertical ? getVertical(commonStyles.paddingVertical) + 'px' : 'auto',
+        paddingBottom: commonStyles.paddingVertical ? getVertical(commonStyles.paddingVertical) + 'px' : 'auto',
       }}>
       <section className={styles.cardListModule}>
         <h1 className={styles.title}>{title?.text}</h1>

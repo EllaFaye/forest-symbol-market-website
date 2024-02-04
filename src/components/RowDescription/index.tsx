@@ -52,18 +52,12 @@ export default function RowDescription(props: RowDescriptionProps) {
   );
 }
 
-function SecondaryList({
-  content,
-  subContentList,
-}: {
-  content: string;
-  subContentList: Array<{ text: string; index: number }>;
-}) {
+function SecondaryList({ content, subContentList }: { content: string; subContentList: Array<DescriptionComponent> }) {
   return (
     <div className={styles.secondaryList}>
       <div className={styles.title}>{content}</div>
       {subContentList.map((item, index) => {
-        return <div className={styles.desc} key={index}>{`· ${item.text}`}</div>;
+        return <div className={styles.desc} key={index}>{`${item.text}`}</div>;
       })}
     </div>
   );

@@ -4,11 +4,8 @@ import { GlobalModuleType } from './index';
 
 export type Footer = {
   key: GlobalModuleType.Footer;
-  logo: {
-    defaultUrl: string;
-    width?: string | number;
-    height?: string | number;
-  };
+  logo: ImageWrapper;
+  description?: string;
   menuList: Array<TopMenu>;
   socialMediaList: SocialMedia[];
   powerName: {
