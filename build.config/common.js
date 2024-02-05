@@ -35,6 +35,10 @@ module.exports = {
         protocol: 'https',
         hostname: 'symbolmarket-mainnet.s3.ap-northeast-1.amazonaws.com',
       },
+      {
+        protocol: 'https',
+        hostname:'forest-dev.s3.ap-northeast-1.amazonaws.com'
+      }
     ],
   },
   sassOptions: {
