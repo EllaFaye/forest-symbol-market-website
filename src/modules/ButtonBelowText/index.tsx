@@ -25,7 +25,7 @@ export function ButtonBelowTextModule({ module }: IButtonBelowTextProps) {
       }}>
       <section className={styles.container}>
         <h1 className={styles.title}>{title.text}</h1>
-        {descriptionList.length && (
+        {Array.isArray(descriptionList) && descriptionList.length > 0 && (
           <section className={styles.descriptionList}>
             {descriptionList.map((item, index) => {
               return (

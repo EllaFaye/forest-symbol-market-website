@@ -71,7 +71,8 @@ export default function HomeTwoColumnsCard(props: HomeTwoColumnsCardProps) {
           })}
 
           <section className={styles.btnListWrap}>
-            {buttonList?.length &&
+            {Array.isArray(buttonList) &&
+              buttonList?.length > 0 &&
               buttonList.map((button, index) => {
                 return (
                   <div className={styles.btnWrap} key={index}>

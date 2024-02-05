@@ -41,7 +41,7 @@ export default function RowDescription(props: RowDescriptionProps) {
           height={iconHeight}
         />
       )}
-      {subContentList && subContentList.length ? (
+      {Array.isArray(subContentList) && subContentList.length > 0 ? (
         <SecondaryList content={content} subContentList={subContentList} />
       ) : (
         <div className={multiLayer ? styles.title : ''} style={{ fontSize: contentSize }}>
