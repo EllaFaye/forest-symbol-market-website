@@ -10,7 +10,6 @@ export const BackEndNetWorkMap: Record<string, WebsiteNetworkConfig> = {
     dev: {
       name: 'tsm dev',
       networkType: 'TESTNET',
-      // cmsUrl: 'http://192.168.66.62:3104/',
       cmsUrl: 'https://testhome.symbolmarket.io/cms/',
       s3Url: 'https://symbolmarket-dev.s3.ap-northeast-1.amazonaws.com/',
     },
@@ -19,6 +18,20 @@ export const BackEndNetWorkMap: Record<string, WebsiteNetworkConfig> = {
       networkType: 'MAIN',
       cmsUrl: '',
       s3Url: 'https://symbolmarket-mainnet.s3.ap-northeast-1.amazonaws.com/',
+    },
+  },
+  FOREST: {
+    dev: {
+      name: 'forest dev',
+      networkType: 'TESTNET',
+      cmsUrl: 'https://testhome.eforest.finance/cms/',
+      s3Url: 'https://forest-dev.s3.ap-northeast-1.amazonaws.com/',
+    },
+    mainnet: {
+      name: 'forest Mainnet',
+      networkType: 'MAIN',
+      cmsUrl: '',
+      s3Url: '',
     },
   },
 };
