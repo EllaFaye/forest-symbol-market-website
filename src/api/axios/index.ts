@@ -29,7 +29,6 @@ const api = create({
 });
 
 const get = async (url: string, params?: any, config?: any) => {
-  console.log('====get', url, api.getBaseURL());
   const res = await api.get(url, params, config);
   if (res.ok) {
     return res.data as any;

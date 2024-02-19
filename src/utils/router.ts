@@ -22,8 +22,6 @@ export function openOriginWithBlank(pathname: string): void {
 }
 
 export function switchPage(type: NavigationType, path?: string | ROUTER, callback?: () => void): void {
-  console.log('switchPage', type, path);
-
   if (!type || !path) return;
   switch (type) {
     case NavigationType.ROUTE:
