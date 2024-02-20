@@ -6,7 +6,7 @@ import HomeMain from '@/pageComponents/Home/HomeMain';
 export default async function Home() {
   const headerData = await getHeader();
   const footerData = await getFooter();
-  const pageData = await getPage('home'); // TODO
+  const pageData = await getPage('home'); // get key from api
 
   return <HomeMain headerData={headerData} footerData={footerData} pageData={pageData} />;
 }
