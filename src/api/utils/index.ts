@@ -121,7 +121,6 @@ export const getPage = async (key: string): Promise<DappPage | undefined> => {
     );
     if (!pageData) return undefined;
     const moduleList = formatModuleList(pageData.moduleList || []);
-
     return {
       ...pageData,
       moduleList,

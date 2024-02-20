@@ -17,7 +17,7 @@ import InfiniteScrollCarouselModule from '@/modules/InfiniteScrollCarouselModule
 import { ButtonBelowTextModule } from '@/modules/ButtonBelowText';
 
 export default function HomeMain({ headerData, footerData, pageData }: IHomePageProps) {
-  const uaType = useUserAgent(); // TODO 'use client' or ''use server';
+  const uaType = useUserAgent();
 
   const setGlobalConfig = useCallback(async () => {
     if (typeof document !== 'undefined') {

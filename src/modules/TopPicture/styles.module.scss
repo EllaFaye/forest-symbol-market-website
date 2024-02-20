@@ -1,4 +1,3 @@
-
 /* stylelint-disable selector-class-pattern */
 @import '/src/assets/theme/color.scss';
 @import '/src/assets/theme/constants.scss';
@@ -53,14 +52,13 @@
     }
   }
 
-
-  @media screen and (max-width: $divide-991) and (min-width: $divide-768)  {
+  @media screen and (max-width: $divide-991) and (min-width: $divide-768) {
     .container {
       width: 728px;
     }
   }
 
-  @media screen and (max-width: $divide-767) and (min-width: $divide-580)  {
+  @media screen and (max-width: $divide-767) and (min-width: $divide-580) {
     .container {
       width: 540px;
     }
@@ -72,5 +70,3 @@
     }
   }
 }
-
-

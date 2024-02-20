@@ -69,7 +69,7 @@ export default function BrandModule({ type, moduleData }: BrandModuleProps) {
                     iosStoreUrl={btn?.iOSUrl}
                     androidStoreUrl={btn?.androidUrl}
                     otherDownloadUrl={btn?.otherUrl}
-                    goDownloadPageUrl={btn?.otherUrl} // TODO
+                    goDownloadPageUrl={btn?.otherUrl}
                     downloadPageBtnClassName={styles.downloadPageBtn}
                   />
                 ) : (
@@ -91,8 +91,8 @@ export default function BrandModule({ type, moduleData }: BrandModuleProps) {
         <div className={styles.mainImage}>
           <CommonImage
             src={moduleData.image.filename_disk ? s3Url + moduleData.image.filename_disk : ''}
-            width={640} // TODO
-            height={640} // TODO
+            width={640}
+            height={640}
             className={clsx(['flex-row-center', styles.mainImage])}
             alt="homeMainImage"
             layout="intrinsic" // TODO

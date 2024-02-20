@@ -100,8 +100,8 @@ export default function HomeTwoColumnsCard(props: HomeTwoColumnsCardProps) {
     return (
       <CommonImage
         src={imgSrc}
-        width={500} // TODO
-        height={500} // TODO
+        width={500}
+        height={500}
         layout="intrinsic" // TODO
         className={clsx(['flex-row-center', imageClassName])}
         alt="infoImg"

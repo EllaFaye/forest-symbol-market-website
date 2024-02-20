@@ -72,7 +72,7 @@ export default function NavHeader({ className, style, path = ROUTER.DEFAULT, dat
       <div className={clsx(['page-container', styles.navHeader])}>
         <CommonImage
           src={data.logo?.filename_disk ? s3Url + data.logo.filename_disk : ''}
-          style={{ width: (Number(data.logo.width) / Number(data.logo.height)) * 32, height: 32, cursor: 'pointer' }} // TODO
+          style={{ width: (Number(data.logo.width) / Number(data.logo.height)) * 32, height: 32, cursor: 'pointer' }}
           fill
           alt="websiteLogo"
           onClick={() => jumpOrScrollToTop(ROUTER.DEFAULT)}
