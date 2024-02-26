@@ -1,5 +1,4 @@
 import { Button } from 'antd';
-import { iconClose } from '@/assets/images';
 import clsx from 'clsx';
 import CommonImage from '@/components/CommonImage';
 import styles from './styles.module.scss';
@@ -70,7 +69,7 @@ export default function NavHeaderMobileMenu({ isOpen = false, data, callback }: 
           priority
           onClick={() => jumpOrScrollToTop(ROUTER.DEFAULT, onClose)}
         />
-        <div style={{ cursor:'pointer' }} onClick={onClose} className={styles.closeIcon}>
+        <div style={{ cursor: 'pointer' }} onClick={onClose} className={styles.closeIcon}>
           <CloseSVG />
         </div>
       </div>

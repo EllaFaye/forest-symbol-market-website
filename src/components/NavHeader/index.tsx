@@ -4,7 +4,6 @@ import CommonImage from '@/components/CommonImage';
 import { NavigationType, ROUTER } from '@/constants/enum';
 import { CSSProperties, useEffect, useState } from 'react';
 import styles from './styles.module.scss';
-import { iconMenuGray, iconNavSelectedBlue } from '@/assets/images';
 import NavHeaderMobileMenu from '@/components/NavHeaderMobileMenu';
 import { jumpOrScrollToTop, openWithBlank, switchPage } from '@/utils/router';
 import MenuArrowSVG from '@/components/SVGComponents/MenuArrowSVG';
@@ -99,7 +98,7 @@ export default function NavHeader({ className, style, path = ROUTER.DEFAULT, dat
         <NavHeaderMobileMenu isOpen={isOpenMenu} data={data} callback={onCloseMenu} />
 
         <div>
-          <div className={styles.menuIcon} style={{cursor:'pointer'}} onClick={onOpenMenu}>
+          <div className={styles.menuIcon} style={{ cursor: 'pointer' }} onClick={onOpenMenu}>
             <MenuGraySVG />
           </div>
           <div className={styles.menus}>
