@@ -10,11 +10,15 @@ export interface IBrandModule {
     text: string;
   };
   image: ImageWrapper;
+  backgroundImage?: ImageWrapper;
   type: BrandModuleType; // default value is "WhiteColor"
   descriptionList: Array<DescriptionComponent>;
   buttonList: Array<ButtonComponent>;
   commonStyles: {
-    paddingVertical?: string;
+    paddingTop?: string;
+    paddingBottom?: string;
+    mobilePaddingTop?: string;
+    mobilePaddingBottom?: string;
     defaultBackgroundColor?: string;
   };
 }

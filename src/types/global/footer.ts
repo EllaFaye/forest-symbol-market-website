@@ -4,9 +4,8 @@ import { GlobalModuleType } from './index';
 
 export type Footer = {
   key: GlobalModuleType.Footer;
-  logo: {
-    defaultUrl: string;
-  };
+  logo: ImageWrapper;
+  description?: string;
   menuList: Array<TopMenu>;
   socialMediaList: SocialMedia[];
   powerName: {
@@ -18,6 +17,8 @@ export type Footer = {
 export type FooterCommonStyles = {
   defaultBackgroundColor?: string;
   dividingLineColor?: string;
+  secondMenuDefaultFontColor?: string;
+  secondMenuFontHoverColor?: string;
 };
 
 export type SocialMedia = {

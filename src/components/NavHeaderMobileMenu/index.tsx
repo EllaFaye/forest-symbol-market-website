@@ -8,7 +8,9 @@ import { ROUTER } from '@/constants/enum';
 import { useCallback, useRef, useState } from 'react';
 import MenuArrowSVG from '@/components/SVGComponents/MenuArrowSVG';
 import { Popup } from 'antd-mobile';
-import { Header, TopMenu } from '@/types/global/header';
+import { Header } from '@/types/global/header';
+import { s3Url } from '@/constants/network';
+import CloseSVG from '../SVGComponents/CloseSVG';
 
 enum HiddenSecondType {
   ALL_HIDDEN = 'none',
@@ -61,23 +63,16 @@ export default function NavHeaderMobileMenu({ isOpen = false, data, callback }: 
       stopPropagation={['click']}>
       <div className={clsx(['flex-row-between', styles.logoRow])}>
         <CommonImage
-          src={data.logo.defaultUrl}
-          style={{ width: 142, height: 32, cursor: 'pointer' }}
-          width={142}
-          height={32}
+          src={data.logo?.filename_disk ? s3Url + data.logo.filename_disk : ''}
+          style={{ width: (Number(data.logo.width) / Number(data.logo.height)) * 32, height: 32, cursor: 'pointer' }}
+          fill
           alt="websiteLogo"
           priority
           onClick={() => jumpOrScrollToTop(ROUTER.DEFAULT, onClose)}
         />
-        <CommonImage
-          src={iconClose}
-          style={{ width: 24, height: 24, cursor: 'pointer' }}
-          width={24}
-          height={24}
-          alt="websiteMenu"
-          onClick={onClose}
-          priority
-        />
+        <div style={{ cursor:'pointer' }} onClick={onClose} className={styles.closeIcon}>
+          <CloseSVG />
+        </div>
       </div>
       <div className={styles.menusWrap}>
         {menuData?.map((item, index) => {
@@ -95,7 +90,7 @@ export default function NavHeaderMobileMenu({ isOpen = false, data, callback }: 
                       ? () => switchPage(item.type, item.path, onClose)
                       : () => showSecondMenus(index)
                   }>
-                  <span className="text-black-btn overflow-x-hidden">{item.title}</span>
+                  <span className="header-nav-btn overflow-x-hidden">{item.title}</span>
                   {item?.children?.length > 0 && <MenuArrowSVG />}
                 </div>
                 {item?.children?.length > 0 && (
@@ -119,7 +114,10 @@ export default function NavHeaderMobileMenu({ isOpen = false, data, callback }: 
         })}
 
         {data.actionButton?.text && (
-          <Button type="text" className={styles.downloadBtn} onClick={() => openWithBlank(data.actionButton?.linkUrl || '')}>
+          <Button
+            type="text"
+            className={styles.downloadBtn}
+            onClick={() => openWithBlank(data.actionButton?.link.url || '')}>
             {data?.actionButton.text}
           </Button>
         )}

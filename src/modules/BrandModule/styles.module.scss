@@ -26,6 +26,9 @@
 
 .brandModuleWrap {
   min-height: 688px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 
   .brandModule {
     display: flex;
@@ -146,6 +149,12 @@
     .mainImage {
       width: 600px;
       height: 600px;
+    }
+  }
+
+  @media screen and (max-width: $divide-991) {
+    .desc {
+      text-align: center;
     }
   }
 

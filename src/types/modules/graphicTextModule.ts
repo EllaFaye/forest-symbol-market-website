@@ -1,4 +1,5 @@
 import { ModuleType } from '.';
+import { ButtonComponent, CommonButtonComponent } from '../components/button';
 import { DescriptionComponent } from '../components/description';
 import { ImageWrapper } from '../components/image';
 
@@ -12,10 +13,14 @@ export interface IGraphicTextModule {
   subTitle?: {
     text: string;
   };
-  descriptionList?: Array<DescriptionComponent>;
+  descriptionList: Array<DescriptionComponent>;
+  buttonList: Array<CommonButtonComponent>;
   type: GraphicTextModuleType; // default value is "LeftPicture_RightText"
   commonStyles: {
-    paddingVertical?: string;
+    paddingTop?: string;
+    paddingBottom?: string;
+    mobilePaddingTop?: string;
+    mobilePaddingBottom?: string;
     defaultBackgroundColor?: string;
   };
 }
@@ -23,4 +28,5 @@ export interface IGraphicTextModule {
 export enum GraphicTextModuleType {
   LeftPicture_RightText = 'LeftPicture',
   LeftText_RightPicture = 'RightPicture',
+  TopPicture_BottomText = 'TopPicture',
 }

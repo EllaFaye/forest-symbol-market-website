@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import CommonImage from '@/components/CommonImage';
 import { NavigationType, ROUTER } from '@/constants/enum';
 import LinkForBlank from '@/components/LinkForBlank';
-import { CSSProperties, useCallback, useState } from 'react';
+import { CSSProperties, useCallback, useEffect, useMemo, useState } from 'react';
 import { jumpOrScrollToTop, switchPage } from '@/utils/router';
 import { getFullYear } from '@/utils/time';
 import styles from './styles.module.scss';
@@ -32,6 +32,27 @@ export default function NavFooter({ className, style, footerMediaClassName, data
     },
     [data.socialMediaList],
   );
+  const logoWidth = useMemo(() => {
+    if (data.logo?.width && data.logo?.height) {
+      return (Number(data.logo.width) / Number(data.logo.height)) * 32;
+    }
+    return 142;
+  }, [data.logo?.height, data.logo?.width]);
+
+  useEffect(() => {
+    if (!data?.commonStyles) {
+      return;
+    }
+    if (typeof document !== 'undefined') {
+      const { secondMenuDefaultFontColor, secondMenuFontHoverColor } = data?.commonStyles || {};
+      if (secondMenuDefaultFontColor) {
+        document?.body.style.setProperty('--secondMenuDefaultFontColor', secondMenuDefaultFontColor);
+      }
+      if (secondMenuFontHoverColor) {
+        document?.body.style.setProperty('--secondMenuFontHoverColor', secondMenuFontHoverColor);
+      }
+    }
+  }, [data]);
 
   return (
     <footer
@@ -40,15 +61,21 @@ export default function NavFooter({ className, style, footerMediaClassName, data
       style={{ backgroundColor: data.commonStyles?.defaultBackgroundColor, ...style }}>
       <div className={clsx(['page-container', styles.footerBody])}>
         <div className={styles.footerNav}>
-          <CommonImage
-            src={data.logo.defaultUrl}
-            style={{ width: 142, height: 32, cursor: 'pointer', minWidth: 142, marginRight: 120, marginBottom: 40 }}
-            width={142}
-            height={32}
-            alt="websiteLogo"
-            className={styles.logo}
-            onClick={() => jumpOrScrollToTop(ROUTER.DEFAULT)}
-          />
+          <div className={clsx('flex-column', styles.footerLogoWrapper)}>
+            <CommonImage
+              src={data.logo?.filename_disk ? s3Url + data.logo.filename_disk : ''}
+              style={{
+                width: logoWidth,
+                height: 32,
+              }}
+              fill
+              alt="websiteLogo"
+              className={styles.logo}
+              onClick={() => jumpOrScrollToTop(ROUTER.DEFAULT)}
+            />
+            <div className={styles.footerDescription}>{data.description}</div>
+          </div>
+
           <div className={clsx(['flex-row', styles.menus])}>
             {Array.isArray(data.menuList) &&
               data.menuList.map((item, index) => {

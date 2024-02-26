@@ -12,9 +12,12 @@ import { useCallback } from 'react';
 import { useEffectOnce } from 'react-use';
 import CardListModule from '@/modules/CardListModule';
 import PartnersModule from '@/modules/PartnersModule';
+import FeatureCardModule from '@/modules/FeatureCardModule';
+import InfiniteScrollCarouselModule from '@/modules/InfiniteScrollCarouselModule';
+import { ButtonBelowTextModule } from '@/modules/ButtonBelowText';
 
 export default function HomeMain({ headerData, footerData, pageData }: IHomePageProps) {
-  const uaType = useUserAgent(); // TODO 'use client' or ''use server';
+  const uaType = useUserAgent();
 
   const setGlobalConfig = useCallback(async () => {
     if (typeof document !== 'undefined') {
@@ -40,7 +43,7 @@ export default function HomeMain({ headerData, footerData, pageData }: IHomePage
       <div className="empty-container" style={{ height: 80 }}></div>
 
       {Array.isArray(pageData?.moduleList) &&
-        pageData.moduleList.map((module, index) => {
+        pageData?.moduleList?.map((module, index) => {
           if (module.key === ModuleType.BrandModule) {
             return (
               <BrandModule key={pageData.key + '_' + index + '_' + module.key} type={uaType} moduleData={module} />
@@ -54,6 +57,15 @@ export default function HomeMain({ headerData, footerData, pageData }: IHomePage
           }
           if (module.key === ModuleType.PartnersModule) {
             return <PartnersModule key={pageData.key + '_' + index + '_' + module.key} module={module} />;
+          }
+          if (module.key === ModuleType.FeatureCardModule) {
+            return <FeatureCardModule key={pageData.key + '_' + index + '_' + module.key} module={module} />;
+          }
+          if (module.key === ModuleType.InfiniteScrollCarouselModule) {
+            return <InfiniteScrollCarouselModule key={pageData.key + '_' + index + '_' + module.key} module={module} />;
+          }
+          if (module.key === ModuleType.ButtonBelowTextModule) {
+            return <ButtonBelowTextModule key={pageData.key + '_' + index + '_' + module.key} module={module} />;
           }
           return <></>;
         })}

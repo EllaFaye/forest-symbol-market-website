@@ -1,4 +1,4 @@
-import { MetaType, ThemeColor, FunctionalColor, NeutralColor } from "./color";
+import { MetaType, ThemeColor, FunctionalColor, NeutralColor } from './color';
 
 export enum GlobalModuleType {
   Header = 'Header',

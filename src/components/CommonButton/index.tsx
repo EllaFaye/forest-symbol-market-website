@@ -8,6 +8,7 @@ export type CommonButtonProps = {
   fontColor?: string;
   backgroundColor?: string;
   borderColor?: string;
+  width?: string | number;
   text: string;
   onClick?: () => void;
 };
@@ -20,11 +21,12 @@ export default function CommonButton({
   backgroundColor,
   borderColor,
   onClick,
+  width,
 }: CommonButtonProps) {
   return (
     <Button
       className={clsx(styles.commonButton, className)}
-      style={{ ...style, color: fontColor, backgroundColor: backgroundColor, borderColor: borderColor }}
+      style={{ ...style, color: fontColor, backgroundColor: backgroundColor, borderColor: borderColor, width }}
       onClick={onClick}>
       {text}
     </Button>

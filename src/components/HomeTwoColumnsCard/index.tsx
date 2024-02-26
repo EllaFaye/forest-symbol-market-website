@@ -1,15 +1,16 @@
-import { Button } from 'antd';
 import clsx from 'clsx';
 import CommonImage from '@/components/CommonImage';
-import { ContentsData } from '@/constants/homeData';
 import RowDescription from '@/components/RowDescription';
-import { CSSProperties } from 'react';
+import { CSSProperties, useMemo } from 'react';
 import styles from './styles.module.scss';
 import { motion, Variants } from 'framer-motion';
 import { INITIAL, WHILE_IN_VIEW, VIEWPORT, variantLeftToRight, variantRightToLeft } from '@/constants/motion';
 import { GraphicTextModuleType } from '@/types/modules/graphicTextModule';
 import { DescriptionComponent } from '@/types/components/description';
 import { s3Url } from '@/constants/network';
+import CommonButton from '../CommonButton';
+import { openWithBlank } from '@/utils/router';
+import { CommonButtonComponent } from '@/types/components/button';
 
 interface ContentData extends DescriptionComponent {
   textColor?: string;
@@ -26,8 +27,7 @@ interface HomeTwoColumnsCardProps {
   imgSrc: string; // image url
   title?: string;
   contents: Array<ContentData>;
-  buttonText?: string;
-  buttonClick?: () => void;
+  buttonList?: Array<CommonButtonComponent>;
 }
 
 export default function HomeTwoColumnsCard(props: HomeTwoColumnsCardProps) {
@@ -39,9 +39,12 @@ export default function HomeTwoColumnsCard(props: HomeTwoColumnsCardProps) {
     imgPosition = GraphicTextModuleType.LeftPicture_RightText,
     title,
     contents,
-    buttonText = '',
-    buttonClick,
+    buttonList,
   } = props;
+
+  const multiLayer = useMemo(() => {
+    return contents.filter((item) => item.children?.length).length > 0;
+  }, [contents]);
 
   const contentUI = (className: string, variant: (amount: number) => Variants) => {
     return (
@@ -54,26 +57,40 @@ export default function HomeTwoColumnsCard(props: HomeTwoColumnsCardProps) {
             return (
               <motion.div key={'HomeTwoColumnsDesc' + idx} variants={variant((idx + 1) * 0.1)}>
                 <RowDescription
+                  multiLayer={multiLayer}
                   subContentList={item.children || []}
                   className={styles.cardContent}
                   iconSrc={item?.icon?.filename_disk ? s3Url + item?.icon?.filename_disk : ''}
                   iconWidth={item?.iconWidth}
                   iconHeight={item?.iconHeight}
-                  content={item.text}
+                  content={item.text || ''}
                   gap={item?.iconMarginRight}
+                  isLast={idx === contents.length - 1}
                 />
               </motion.div>
             );
           })}
 
-          {buttonText && (
-            <div className={styles.btnWrap}>
-              <motion.span variants={variant(contents.length * 0.5)}>
-                <Button type="text" onClick={buttonClick} className={styles.btn}>
-                  {buttonText}
-                </Button>
-              </motion.span>
-            </div>
+          {Array.isArray(buttonList) && buttonList?.length > 0 && (
+            <section className={styles.btnListWrap}>
+              {buttonList.map((button, index) => {
+                return (
+                  <div className={styles.btnWrap} key={index}>
+                    <motion.span variants={variant(contents.length * 0.5)}>
+                      <CommonButton
+                        className={styles.btn}
+                        text={button.text || ''}
+                        fontColor={button.commonStyles.default?.fontColor}
+                        backgroundColor={button.commonStyles.default?.backgroundColor}
+                        borderColor={button.commonStyles.default?.borderColor}
+                        width={button.commonStyles.width ? button.commonStyles.width + 'px' : 'auto'}
+                        onClick={() => openWithBlank(button.link?.url, button.link?.target)}
+                      />
+                    </motion.span>
+                  </div>
+                );
+              })}
+            </section>
           )}
         </motion.div>
       </div>
@@ -84,8 +101,8 @@ export default function HomeTwoColumnsCard(props: HomeTwoColumnsCardProps) {
     return (
       <CommonImage
         src={imgSrc}
-        width={500} // TODO
-        height={500} // TODO
+        width={500}
+        height={500}
         layout="intrinsic" // TODO
         className={clsx(['flex-row-center', imageClassName])}
         alt="infoImg"

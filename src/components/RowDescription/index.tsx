@@ -12,6 +12,8 @@ export interface RowDescriptionProps {
   contentSize?: number;
   className?: string;
   subContentList?: Array<DescriptionComponent>;
+  multiLayer?: boolean;
+  isLast: boolean;
 }
 
 export default function RowDescription(props: RowDescriptionProps) {
@@ -24,12 +26,14 @@ export default function RowDescription(props: RowDescriptionProps) {
     contentSize,
     className,
     subContentList,
+    multiLayer = false,
+    isLast = false,
   } = props;
 
   return (
     <div
       className={clsx([styles.rowDescription, className])}
-      style={subContentList?.length ? { marginBottom: '40px' } : { marginBottom: '16px' }}>
+      style={{ marginBottom: isLast ? '0' : multiLayer ? '40px' : '16px' }}>
       {iconSrc && (
         <CommonImage
           src={iconSrc}
@@ -39,27 +43,23 @@ export default function RowDescription(props: RowDescriptionProps) {
           height={iconHeight}
         />
       )}
-      {subContentList && subContentList.length ? (
+      {Array.isArray(subContentList) && subContentList.length > 0 ? (
         <SecondaryList content={content} subContentList={subContentList} />
       ) : (
-        <div style={{ fontSize: contentSize }}>{content}</div>
+        <div className={multiLayer ? styles.title : ''} style={{ fontSize: contentSize }}>
+          {content}
+        </div>
       )}
     </div>
   );
 }
 
-function SecondaryList({
-  content,
-  subContentList,
-}: {
-  content: string;
-  subContentList: Array<{ text: string; index: number }>;
-}) {
+function SecondaryList({ content, subContentList }: { content: string; subContentList: Array<DescriptionComponent> }) {
   return (
     <div className={styles.secondaryList}>
       <div className={styles.title}>{content}</div>
       {subContentList.map((item, index) => {
-        return <div className={styles.desc} key={index}>{`· ${item.text}`}</div>;
+        return <div className={styles.desc} key={index}>{`${item.text}`}</div>;
       })}
     </div>
   );

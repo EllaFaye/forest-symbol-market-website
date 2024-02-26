@@ -32,8 +32,8 @@ const get = async (url: string, params?: any, config?: any) => {
   const res = await api.get(url, params, config);
   if (res.ok) {
     return res.data as any;
-  }else{
-    throw Error('fetch failed, please try again')
+  } else {
+    throw Error('fetch failed, please try again');
   }
 };
 
