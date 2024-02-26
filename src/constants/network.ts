@@ -17,7 +17,7 @@ export const BackEndNetWorkMap: Record<string, WebsiteNetworkConfig> = {
     mainnet: {
       name: 'tsm Mainnet',
       networkType: 'MAIN',
-      cmsUrl: '',
+      cmsUrl: 'https://home.symbolmarket.io/cms/',
       s3Url: 'https://symbolmarket-mainnet.s3.ap-northeast-1.amazonaws.com/',
     },
   },
