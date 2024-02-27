@@ -12,8 +12,6 @@ export interface GraphicTextModuleProps {
   module: IGraphicTextModule;
 }
 
-const DEFAULT_PADDING_VERTICAL = 120;
-
 export default function GraphicTextModule({ module }: GraphicTextModuleProps) {
   const { getVertical } = useGetVertical();
   const { defaultBackgroundColor } = module.commonStyles;
